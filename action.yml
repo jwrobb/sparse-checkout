@@ -11,6 +11,14 @@ inputs:
 
       [Learn more about set](https://git-scm.com/docs/git-sparse-checkout#Documentation/git-sparse-checkout.txt-emsetem)
     required: true
+    
+  # Set the default to be the same behavior as previous versions  
+  initopts:
+    description: >
+      Options to pass to the sparse-checkout init
+      default: "--cone"
+      [Learn more about set](https://git-scm.com/docs/git-sparse-checkout#Documentation/git-sparse-checkout.txt-eminitem)
+    required: false
 
   # Same as actions/checkout
   repository:
@@ -109,11 +117,12 @@ runs:
     - name: Setting up sparse checkout
       run: |
         echo "::group::Setting up sparse checkout"
-        $GIT sparse-checkout init --cone
+        $GIT sparse-checkout init $INITOPTS
         $GIT sparse-checkout set $PATTERNS
         echo "::endgroup::"
       env:
         PATTERNS: ${{ inputs.patterns }}
+        INITOPTS: ${{ inputs.initopts }}
       working-directory: ${{ inputs.path }}
       shell: bash
 

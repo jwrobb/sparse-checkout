@@ -15,6 +15,7 @@ jobs:
     steps:
       - uses: snow-actions/sparse-checkout@v1.1.0
         with:
+          initopts: "--no-cone"
           patterns: |
             .github
 ```
@@ -26,6 +27,7 @@ See [action.yml](action.yml).
 |name|required|description|default value|
 |---|---|---|---|
 |patterns|required|Write a set of patterns to the sparse-checkout file.|-|
+|initopts|optional|Pass parameters to the `sparse-checkout init` command.|`--cone`|
 |repository|optional|Same as actions/checkout|`${{ github.repository }}`|
 |ref|optional|Same as actions/checkout|`''`|
 |token|optional|Same as actions/checkout|`${{ github.token }}`|
